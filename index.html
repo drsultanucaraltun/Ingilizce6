@@ -63,7 +63,20 @@ dialog::backdrop { background:rgba(25,20,35,.55); }
   padding:8px 12px; cursor:pointer; text-decoration:none; }
 .bar button.x { background:var(--ink); color:#fff; }
 dialog iframe { width:100%; height:calc(100% - 57px); border:0; display:block; background:#e9e6e1; }
+.practice { margin:10px 0 44px; scroll-margin-top:20px; }
+.practice-head { display:flex; align-items:baseline; flex-wrap:wrap; gap:6px 14px; border-bottom:3px solid #1F7AB8; padding-bottom:8px; margin-bottom:22px; }
+.practice-head h2 { margin:0; font-size:30px; font-weight:800; }
+.practice-head span { color:var(--soft); font-size:15px; }
+.pcard { flex-direction:row; }
+.pcard .pic { flex:0 0 50%; aspect-ratio:auto; min-height:220px; }
+.pcard .pic img { position:absolute; inset:0; }
+.pcard .body { flex:1; min-width:0; }
+.topics { list-style:none; padding:0; margin:0 0 4px; display:flex; flex-wrap:wrap; gap:8px; }
+.topics li { border:1.5px solid var(--ac); color:var(--ac); border-radius:99px; padding:4px 12px; font-weight:700; font-size:14px; }
 @media (max-width:760px) {
+  .pcard { flex-direction:column; }
+  .pcard .pic { flex:none; aspect-ratio:1200/440; min-height:0; }
+
   .grid { grid-template-columns:minmax(0, 1fr); }
 }
 @media (max-width:640px) {
@@ -224,6 +237,24 @@ dialog iframe { width:100%; height:calc(100% - 57px); border:0; display:block; b
     </div>
   </div>
 </article></main>
+  <section class="practice" id="alistirmalar">
+    <div class="practice-head"><h2>Alıştırmalar</h2><span>Konu pekiştirme föyleri</span></div>
+    <article class="card pcard" style="--ac:#1F7AB8;--tint:#E6F1FA">
+      <div class="pic"><img class="prac" data-t="6" data-i="2" alt="Elif ve annesi birlikte ders çalışıyor"><span class="badge">Alıştırma 1</span></div>
+      <div class="body">
+        <div class="city"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l11-11-4-4L4 16v4zm13.5-13.5 1-1a1.4 1.4 0 0 1 2 2l-1 1z"/></svg>Pekiştirme</div>
+        <h2>Grammar Clinic</h2>
+        <ul class="topics"><li>Adverbs of frequency</li><li>Object pronouns</li><li>Question tags</li></ul>
+        <ul class="facts"><li><b>3</b> konu</li><li><b>10</b> soruluk mini test</li><li><b>9</b> sayfa</li></ul>
+        <div class="actions">
+          <a class="btn read" href="Practice%201%20-%20Grammar%20Clinic.pdf" data-title="Alıştırma 1 · Grammar Clinic" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5C4 4 7 4 11 5.5v14C7 18 4 18 2 19.5zM22 5.5C20 4 17 4 13 5.5v14c4-1.5 7-1.5 9 0z"/></svg>Aç ve oku</a>
+          <a class="btn ghost" href="Practice%201%20-%20Grammar%20Clinic.pdf" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0-4.5-4.5M12 14l4.5-4.5M4 17v3h16v-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>İndir</a>
+        </div>
+      </div>
+    </article>
+  </section>
   <footer>MEB English 6 Student's Book temalarına göre hazırlanmıştır.</footer>
 </div>
 
@@ -246,6 +277,7 @@ document.querySelectorAll('.thumb').forEach(b => {
     card.querySelectorAll('.thumb').forEach(x => x.classList.toggle('on', x === b));
   });
 });
+document.querySelectorAll('img.prac').forEach(img => { img.src = PICS[img.dataset.t][+img.dataset.i]; });
 const dlg = document.getElementById('viewer'), vf = document.getElementById('vf');
 document.querySelectorAll('.btn.read').forEach(a => a.addEventListener('click', e => {
   if (window.matchMedia('(max-width: 700px)').matches || !dlg.showModal) return;   // phones: open the PDF directly
